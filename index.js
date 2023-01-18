@@ -20,7 +20,12 @@ const sendApprovalEmail = require('./routes/approvalEmail');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
-
+app.get("/", (req, res) => {
+    // res.sendFile("views/index.html", { root: __dirname });
+    // // res.sendFile("../AtomSupply-KubeFrontend/build/index.html", { root: __dirname });
+    // res.sendFile(path.resolve(__dirname, '../AtomSupply-KubeFrontend/build/', 'index.html'));
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
 
 app.use('/update', updateRoute);
 app.use('/api/v1/log', logRoute);
