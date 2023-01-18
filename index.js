@@ -13,7 +13,7 @@ const BekkerToken = "2sGMxTwKeClnILXa3aK2";
 // Import Routes from routes folder
 const updateRoute = require('./routes/update');
 const logRoute = require('./routes/log');
-const errorLogRoute = require('./routes/log');
+const errorLogRoute = require('./routes/errorLogs');
 const sendApprovalEmail = require('./routes/approvalEmail');
 
 
