@@ -5,7 +5,7 @@ const connection = require('../database');
 const alertEmail = require('./email')
 const shell = require("shelljs");
 const writeLogController = require("./writeLogController");
-const tagPosition = ["master", "staging", "develop"];
+const tagPosition = ["master", "staging", "develop", "releasing"];
 const apiToken = ["2sGMxTwKeClnILXa3aK2", "testToken1"];
 
 function updatePOST(req, res) {
@@ -18,7 +18,7 @@ function updatePOST(req, res) {
         res.status(401).send("Invalid token!");
 
     }
-    else if (req.body.environment === "uat" && req.body.tag === "staging") {
+    else if (req.body.tag === "staging") {
         if (alertEmail.sendWaitingForUpdateEmail(req.body)) {
             tempOutputObj.message = "Waiting for approval email sent";
             let postbackData = JSON.stringify(tempOutputObj)
@@ -40,14 +40,14 @@ function updatePOST(req, res) {
             source = "Postman Testing"
         }
         if (tagPosition.includes(req.body.tag.toLowerCase())) {
-            output = shell.exec(`microk8s kubectl rollout restart deployment ${req.body.environment.charAt(0).toLowerCase()}-${req.body.image.replace("_", "-")}-${tagPosition.indexOf(req.body.tag.toLowerCase())}`);
+            output = shell.exec(`microk8s kubectl rollout restart deployment ${req.body.image.replace("_", "-").toLowerCase()}-${req.body.tag.slice(0,3).toLowerCase()}`);
             tempOutputObj.message = output;
             console.log(output.stderr);
             if (output.stderr.includes("not found")) {
                 let logType = "KubeUpdateErrorLogs";
                 console.log("first else)")
                 console.log(logType)
-                writeLogController.writeLog(logType.replace(/['"]+/g, ''), currentTimeStamp.replace(/['"]+/g, ''), req.body.environment.replace(/['"]+/g, ''), req.body.image.replace(/['"]+/g, ''), req.body.tag.replace(/['"]+/g, ''), output.stderr.replace(/['"]+/g, ''), source.replace(/['"]+/g, ''));
+                writeLogController.writeLog(logType.replace(/['"]+/g, ''), currentTimeStamp.replace(/['"]+/g, ''), req.body.tag.replace(/['"]+/g, ''), req.body.image.replace(/['"]+/g, ''), req.body.tag.replace(/['"]+/g, ''), output.stderr.replace(/['"]+/g, ''), source.replace(/['"]+/g, ''));
                 output = "Deployment Not Found";
                 console.log(output)
                 tempOutputObj.message = output;
@@ -66,7 +66,7 @@ function updatePOST(req, res) {
             // .replace(/['"]+/g, '')   is removing ' " quotes
             console.log("in last else)")
             let logType = "KubeUpdateErrorLogs";
-            writeLogController.writeLog(logType.replace(/['"]+/g, ''), currentTimeStamp.replace(/['"]+/g, ''), req.body.environment.replace(/['"]+/g, ''), req.body.image.replace(/['"]+/g, ''), req.body.tag.replace(/['"]+/g, ''), output.stderr.replace(/['"]+/g, ''), source.replace(/['"]+/g, ''));
+            writeLogController.writeLog(logType.replace(/['"]+/g, ''), currentTimeStamp.replace(/['"]+/g, ''), req.body.tag.replace(/['"]+/g, ''), req.body.image.replace(/['"]+/g, ''), req.body.tag.replace(/['"]+/g, ''), output.stderr.replace(/['"]+/g, ''), source.replace(/['"]+/g, ''));
             output = "Deployment Not Found";
             tempOutputObj.message = output;
             let postbackData = JSON.stringify(tempOutputObj);
