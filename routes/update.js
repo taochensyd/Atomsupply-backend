@@ -5,11 +5,12 @@ const nodemailer = require("nodemailer");
 const writeLogController = require("../controller/writeLogController");
 const tagPosition = ["master", "staging", "develop"];
 const updateController = require('../controller/updateController');
+const emailUpdateController = require('../controller/emailUpdate');
 const apiToken = ["2sGMxTwKeClnILXa3aK2", "testToken1"];
 
 
-router.get('/', (req, res) => {
-    res.send({ "message": "OK" })
+router.get('/:image/:tag', (req, res) => {
+    emailUpdateController.emailUpdate(req, res);
 })
 
 router.post('/', (req, res) => {

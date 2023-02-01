@@ -55,7 +55,7 @@ function updatePOST(req, res) {
                 res.status(404).send(`${postbackData}`);
             } else {
                 let logType = "KubeUpdateLogs";
-                writeLogController.writeLog(logType, currentTimeStamp, req.body.environment, req.body.image, req.body.tag, output, source);
+                writeLogController.writeLog(logType, currentTimeStamp, req.body.tag, req.body.image, req.body.tag, output, source);
                 let postbackData = JSON.stringify(tempOutputObj)
                 res.status(200).send(`${postbackData}`);
             }

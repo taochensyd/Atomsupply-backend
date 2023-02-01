@@ -12,6 +12,7 @@ const BekkerToken = "2sGMxTwKeClnILXa3aK2";
 
 // Import Routes from routes folder
 const updateRoute = require('./routes/update');
+const emailUpdateRoute = require('./routes/emailUpdate');
 const logRoute = require('./routes/log');
 const errorLogRoute = require('./routes/errorLogs');
 const sendApprovalEmail = require('./routes/approvalEmail');
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
   });
 
 app.use('/update', updateRoute);
+app.use('/api/v1/update', emailUpdateRoute);
 app.use('/api/v1/log', logRoute);
 app.use('/api/v1/errorLog', errorLogRoute);
 app.use('/api/v1/sendApprovalEmail', sendApprovalEmail);

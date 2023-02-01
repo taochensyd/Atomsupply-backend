@@ -46,13 +46,11 @@ async function sendWaitingForUpdateEmail(message) {
         from: '"Kube-Alert" <noreply@atom.com.au>',
         // to: "kube-alerts@atom.com.au",
         to: "tao.chen@atom.com.au",
-        subject: `Waiting for update: ${message.environment
-          }-${message.image.replace("_", "-")}-${message.tag}`,
+        subject: `Waiting for update: ${message.image.replace("_", "-")}-${message.tag}`,
         text: `Date & Time: ${date}/${month}/${year} ${hours}:${minutes}:${seconds} (${Intl.DateTimeFormat().resolvedOptions().timeZone
           })\nApplication: Microk8s Kubernetes Cluster\nWaiting for update: \nEnvironemnt: ${message.environment
           }\nImage: ${message.image}\nTag: ${message.tag
-          }\n\nClick below link to update:\nhttps://kube-api-endpoint.atom.com.au/api/v1/update/deploymentName?environment=${message.environment
-          }&image=${message.image.replace("_", "-")}&tag=${message.tag}`,
+          }\n\nClick below link to update:\nhttps://kube-api-endpoint.atom.com.au/update/${message.image.replace("_", "-")}/${message.tag}`,
       });
       return true;
     } catch (error) {
