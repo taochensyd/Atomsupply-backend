@@ -18,17 +18,17 @@ function updatePOST(req, res) {
         res.status(401).send("Invalid token!");
 
     }
-    else if (req.body.tag === "staging") {
-        if (alertEmail.sendWaitingForUpdateEmail(req.body)) {
-            tempOutputObj.message = "Waiting for approval email sent";
-            let postbackData = JSON.stringify(tempOutputObj)
-            res.status(200).send(`${postbackData}`);
-        } else {
-            tempOutputObj.message = "Fail to sent waiting for approval email";
-            let postbackData = JSON.stringify(tempOutputObj)
-            res.status(400).send(`${postbackData}`);
-        }
-    }
+    // else if (req.body.tag === "staging") {
+    //     if (alertEmail.sendWaitingForUpdateEmail(req.body)) {
+    //         tempOutputObj.message = "Waiting for approval email sent";
+    //         let postbackData = JSON.stringify(tempOutputObj)
+    //         res.status(200).send(`${postbackData}`);
+    //     } else {
+    //         tempOutputObj.message = "Fail to sent waiting for approval email";
+    //         let postbackData = JSON.stringify(tempOutputObj)
+    //         res.status(400).send(`${postbackData}`);
+    //     }
+    // }
 
     else {
         let tagIndex = { index: null };
