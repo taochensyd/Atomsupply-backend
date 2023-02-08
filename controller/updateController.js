@@ -5,7 +5,7 @@ const connection = require('../database');
 const alertEmail = require('./email')
 const shell = require("shelljs");
 const writeLogController = require("./writeLogController");
-const tagPosition = ["master", "staging", "develop", "releasing"];
+const tagPosition = ["master", "staging", "develop", "release"];
 const apiToken = ["2sGMxTwKeClnILXa3aK2", "testToken1"];
 
 function updatePOST(req, res) {

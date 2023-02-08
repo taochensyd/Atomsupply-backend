@@ -45,7 +45,7 @@ async function sendWaitingForUpdateEmail(message) {
         // to: "InformationTechnology@atom.com.au",
         from: '"Kube-Alert" <noreply@atom.com.au>',
         // to: "kube-alerts@atom.com.au",
-        to: "tao.chen@atom.com.au",
+        to: "kube-alerts@atom.com.au",
         subject: `Waiting for update: ${message.image.replace("_", "-")}-${message.tag}`,
         text: `Date & Time: ${date}/${month}/${year} ${hours}:${minutes}:${seconds} (${Intl.DateTimeFormat().resolvedOptions().timeZone
           })\nApplication: Microk8s Kubernetes Cluster\nWaiting for update: \nEnvironemnt: ${message.environment
